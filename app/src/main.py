@@ -40,7 +40,9 @@ class WiperDemoApp(VehicleApp):
 
     async def on_start(self):
 
-        await self.publish_mqtt_event("notifyPhone", json.dumps({"result": {"message": """"""}}))
+        await self.publish_mqtt_event(
+            "notifyPhone", json.dumps({"result": {"message": """"""}})
+        )
 
         await self.Vehicle.Body.Hood.IsOpen.set(False)
 
@@ -50,7 +52,9 @@ class WiperDemoApp(VehicleApp):
         await asyncio.sleep(3)
 
         logger.info("Turn on Wipers")
-        await self.Vehicle.Body.Windshield.Front.Wiping.Mode.set(self.Vehicle.Body.Windshield.Front.Wiping.Mode.MEDIUM)
+        await self.Vehicle.Body.Windshield.Front.Wiping.Mode.set(
+            self.Vehicle.Body.Windshield.Front.Wiping.Mode.MEDIUM
+        )
 
         await asyncio.sleep(6)
 
@@ -61,9 +65,20 @@ class WiperDemoApp(VehicleApp):
         IsOpen = data.get(self.Vehicle.Body.Hood.IsOpen).value
         logger.info("Listener was triggered")
         if IsOpen:
-            await self.Vehicle.Body.Windshield.Front.Wiping.Mode.set(self.Vehicle.Body.Windshield.Front.Wiping.Mode.OFF)
+            await self.Vehicle.Body.Windshield.Front.Wiping.Mode.set(
+                self.Vehicle.Body.Windshield.Front.Wiping.Mode.OFF
+            )
             logger.info("Wipers were turned off because hood was opened")
-            await self.publish_mqtt_event("notifyPhone", json.dumps({"result": {"message": """Info: Wipers were turned off because hood was opened"""}}))
+            await self.publish_mqtt_event(
+                "notifyPhone",
+                json.dumps(
+                    {
+                        "result": {
+                            "message": """Info: Wipers were turned off because hood was opened"""
+                        }
+                    }
+                ),
+            )
 
 
 async def main():
