@@ -69,15 +69,10 @@ class WiperDemoApp(VehicleApp):
                 self.Vehicle.Body.Windshield.Front.Wiping.Mode.OFF
             )
             logger.info("Wipers were turned off because hood was opened")
+            message = "Info: Wipers were turned off because hood was opened"
             await self.publish_mqtt_event(
                 "notifyPhone",
-                json.dumps(
-                    {
-                        "result": {
-                            "message": """Info: Wipers were turned off because hood was opened"""
-                        }
-                    }
-                ),
+                json.dumps({"result": {"message": message}}),
             )
 
 
